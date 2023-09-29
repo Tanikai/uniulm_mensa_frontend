@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataContext, MensaList } from "./DataContext";
 import { defaultState } from "./DefaultState";
-import dayjs from "dayjs";
+import * as dayjs from "dayjs";
 
 interface MensaProviderProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
   const [data, setData] = useState<MensaList>(defaultState.mensaplan);
   const [planDates, setPlanDates] = useState<string[]>(defaultState.planDates);
   const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
-  const [selectedCanteen] = useState<string>(
+  const [selectedCanteen, setSelectedCanteen] = useState<string>(
     defaultState.selectedCanteen);
   const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
   const apiUrl = "https://uulm.anter.dev/api/v1/canteens/ul_uni_sued/all";
@@ -36,6 +36,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
         planDates: planDates,
         isLoading: isLoading,
         selectedCanteen: selectedCanteen,
+        setSelectedCanteen: setSelectedCanteen,
         activeDate: activeDate,
         setActiveDate: setActiveDate,
       }}

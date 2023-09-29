@@ -3,12 +3,12 @@ import { Meal } from "../../../providers/DataContext";
 import "./MealElement.css";
 
 interface MealElementProps {
-  meal: Meal;
+  meal: Meal | undefined;
 }
 
 export default function MealElement(props: MealElementProps) {
   if (props.meal == null) {
-    return <div></div>;
+    return <div className="meal-element">Mensa geschlossen</div>;
   }
   return (
     <div className="meal-element">

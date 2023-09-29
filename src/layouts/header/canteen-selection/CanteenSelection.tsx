@@ -8,10 +8,10 @@ import { canteens } from "../../../providers/Constants";
 
 export default function CanteenSelection() {
 
-  const context = useContext<DataContextProps>(DataContext);
+  const {setSelectedCanteen} = useContext<DataContextProps>(DataContext);
 
   const onCanteenChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    context.selectedCanteen = event.target.value;
+    setSelectedCanteen(event.target.value);
   };
 
   return (

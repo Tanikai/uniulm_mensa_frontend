@@ -6,7 +6,7 @@ import "./CanteenMeals.css";
 import { ScaleLoader } from "react-spinners";
 
 export default function CanteenMeals() {
-  const { mensaplan, isLoading, activeDate } =
+  const { mensaplan, isLoading, activeDate, selectedCanteen } =
     useContext<DataContextProps>(DataContext);
   if (isLoading || activeDate === "") {
     return (
@@ -16,13 +16,16 @@ export default function CanteenMeals() {
     );
   }
 
-  const canteen = mensaplan["ul_uni_sued"];
+  const canteen = mensaplan[selectedCanteen];
+  if (canteen == null) {
+    return (<div></div>);
+  }
   const meals = canteen[activeDate];
 
   return (
     <div id="canteen-meals">
       {meals.length == 0 ? (
-        <p>Canteen is closed</p>
+         <MealElement meal={undefined}></MealElement>
       ) : (
         meals.map((meal, index) => {
           return <MealElement meal={meal} key={index}></MealElement>;

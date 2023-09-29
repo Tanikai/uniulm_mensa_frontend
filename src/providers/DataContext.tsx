@@ -30,6 +30,7 @@ export interface DataContextProps {
   setActiveDate: (date: string) => void;
   isLoading: boolean;
   selectedCanteen: string;
+  setSelectedCanteen: (canteen: string) => void;
 }
 
 export interface Canteen {
