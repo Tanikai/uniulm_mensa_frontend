@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./DaySelection.css";
 import { DataContext, DataContextProps } from "../../../providers/DataContext";
 import { BarLoader } from "react-spinners";
+import dayjs from "dayjs";
 
 export default function DaySelection() {
   const weekdayTemplate = ["Mo", "Di", "Mi", "Do", "Fr"];
@@ -25,11 +26,13 @@ export default function DaySelection() {
   }
 
   const onDayButtonClicked = (
-    event: React.MouseEvent<HTMLButtonElement>,
+    _: React.MouseEvent<HTMLButtonElement>,
     value: string
   ) => {
     setActiveDate(value);
   };
+
+  const today = dayjs().format("YYYY-MM-DD");
 
   return (
     <nav id="day-selection">
@@ -39,7 +42,7 @@ export default function DaySelection() {
           <button
             className={`day-element ${
               activeDate === dateIsoFormat ? "active" : ""
-            }`}
+            } ${today === dateIsoFormat ? "today" : ""}`}
             key={index}
             onClick={(e) => onDayButtonClicked(e, dateIsoFormat)}
           >

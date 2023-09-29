@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { DataContext, DataContextProps } from "../../providers/DataContext";
 import MealElement from "./meal-element/MealElement";
 

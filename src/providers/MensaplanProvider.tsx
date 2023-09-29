@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataContext, MensaList } from "./DataContext";
 import { defaultState } from "./DefaultState";
-import { add, format } from "date-fns";
+import dayjs from "dayjs";
 
 interface MensaProviderProps {
   children: React.ReactNode;
@@ -51,12 +51,12 @@ function getDates(mensaList: MensaList): string[] {
 }
 
 function getRecommendedDate(dates: string[]): string {
-  let date = new Date(); // today
+  let date: dayjs.Dayjs = dayjs();
   for (let i = 0; i < 5; i++) {
     // check if day is included in available canteen dates, if not then skip
-    const formattedDate = format(date, 'yyyy-MM-dd');
+    const formattedDate = date.format("YYYY-MM-DD");
     if (dates.includes(formattedDate)) return formattedDate;
-    date = add(date, {days: 1});
+    date = date.add(1, "day");
   }
   return "";
 }

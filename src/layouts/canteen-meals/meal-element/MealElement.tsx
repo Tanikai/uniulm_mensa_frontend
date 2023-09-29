@@ -1,4 +1,3 @@
-import React from "react";
 import { Meal } from "../../../providers/DataContext";
 
 import "./MealElement.css";
