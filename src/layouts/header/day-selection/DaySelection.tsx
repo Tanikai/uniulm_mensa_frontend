@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./DaySelection.css";
 import { DataContext, DataContextProps } from "../../../providers/DataContext";
 import { BarLoader } from "react-spinners";
-import dayjs from "dayjs";
+import * as dayjs from "dayjs";
 
 export default function DaySelection() {
   const weekdayTemplate = ["Mo", "Di", "Mi", "Do", "Fr"];
