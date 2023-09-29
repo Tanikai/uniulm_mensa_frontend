@@ -7,5 +7,6 @@ export const defaultState: DataContextProps = {
   setActiveDate: () => {},
   isLoading: true,
   selectedCanteen: "ul_uni_sued",
+  setSelectedCanteen: () => {},
 };
 
