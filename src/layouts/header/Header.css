@@ -1,0 +1,8 @@
+.row {
+    color: var(--md-sys-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    margin-left: auto;
+}

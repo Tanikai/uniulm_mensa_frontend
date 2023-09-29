@@ -1,0 +1,24 @@
+.meal-element {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    padding: 1em;
+    margin-top: 1em;
+    border-radius: 1em;
+    position: relative;
+    box-shadow: var(--md-sys-elevation-1);
+    line-height: 1.6;
+}
+
+/* .meal-category {
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    display: block;
+    top: 10%;
+    right: 1%;
+} */
+
+.meal-price {
+    text-align: right;
+    font-style: italic;
+}
