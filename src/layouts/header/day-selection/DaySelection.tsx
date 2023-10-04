@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./DaySelection.css";
 import { DataContext, DataContextProps } from "../../../providers/DataContext";
 import { BarLoader } from "react-spinners";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 
 export default function DaySelection() {
   const weekdayTemplate = ["Mo", "Di", "Mi", "Do", "Fr"];
@@ -32,7 +32,7 @@ export default function DaySelection() {
     setActiveDate(value);
   };
 
-  const today = dayjs().format("YYYY-MM-DD");
+  const today: string = dayjs().format("YYYY-MM-DD");
 
   return (
     <nav id="day-selection">

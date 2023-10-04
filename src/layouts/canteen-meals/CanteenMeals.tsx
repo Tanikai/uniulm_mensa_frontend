@@ -22,6 +22,10 @@ export default function CanteenMeals() {
   }
   const meals = canteen[activeDate];
 
+  if (meals == null) {
+    return (<div>Ein Fehler ist aufgetreten, sorry!</div>)
+  }
+
   return (
     <div id="canteen-meals">
       {meals.length == 0 ? (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataContext, MensaList } from "./DataContext";
 import { defaultState } from "./DefaultState";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 
 interface MensaProviderProps {
   children: React.ReactNode;
@@ -12,7 +12,8 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
   const [planDates, setPlanDates] = useState<string[]>(defaultState.planDates);
   const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
   const [selectedCanteen, setSelectedCanteen] = useState<string>(
-    defaultState.selectedCanteen);
+    defaultState.selectedCanteen
+  );
   const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
   const apiUrl = "https://uulm.anter.dev/api/v1/canteens/ul_uni_sued/all";
 
@@ -47,12 +48,12 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
 };
 
 function getDates(mensaList: MensaList): string[] {
-  const firstCanteenElement = mensaList[Object.keys(mensaList)[0]];
-  return Object.keys(firstCanteenElement);
+  const suedCanteen = mensaList["ul_uni_sued"];
+  return Object.keys(suedCanteen).sort();
 }
 
 function getRecommendedDate(dates: string[]): string {
-  let date: dayjs.Dayjs = dayjs();
+  let date = dayjs();
   for (let i = 0; i < 5; i++) {
     // check if day is included in available canteen dates, if not then skip
     const formattedDate = date.format("YYYY-MM-DD");
@@ -61,6 +62,5 @@ function getRecommendedDate(dates: string[]): string {
   }
   return "";
 }
-
 
 export default MensaplanProvider;
