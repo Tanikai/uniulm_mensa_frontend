@@ -1,27 +1,40 @@
-# React + TypeScript + Vite
+# Uni Ulm Mensa Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project contains a web UI for the daily canteen plans at Ulm University.
+The following canteens are supported:
 
-Currently, two official plugins are available:
+- Mensa Uni Süd
+- Cafeteria Nord
+- Cafeteria West
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Visit the website at [mensa.anter.dev](https://mensa.anter.dev).
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Prerequisites
 
-- Configure the top-level `parserOptions` property like this:
+- [pnpm](https://pnpm.io/)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+### Installation
+
+```bash
+git clone https://github.com/Tanikai/uniulm_mensa_frontend.git
+cd uniulm_mensa_frontend
+pnpm i
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Running it locally
+
+```bash
+pnpm run dev
+```
+
+## Alternatives
+
+- [Mensa TUI](https://github.com/LukasPietzschmann/uulm-mensa-tui): If you are a
+terminal lover, you can also use the terminal application a friend of mine wrote
+
+## Contact
+
+Kai Anter - [www.anter.dev](https://www.anter.dev) -
+[Mastodon](https://hachyderm.io/@Tanikai)
