@@ -15,13 +15,9 @@ export interface Meal {
   allergy: string[];
 }
 
-export interface Mensaplan {
-  [index: string]: Meal[]; // index is the date in iso
-}
+export type Mensaplan = Record<string, Meal[]>;
 
-export interface MensaList {
-  [index: string]: Mensaplan;
-}
+export type MensaList = Record<string, Mensaplan>;
 
 export interface DataContextProps {
   mensaplan: MensaList;

@@ -4,9 +4,8 @@ export const defaultState: DataContextProps = {
   mensaplan: {},
   planDates: [],
   activeDate: "",
-  setActiveDate: () => {},
+  setActiveDate: () => void 0,
   isLoading: true,
   selectedCanteen: "ul_uni_sued",
-  setSelectedCanteen: () => {},
+  setSelectedCanteen: () => void 0,
 };
-

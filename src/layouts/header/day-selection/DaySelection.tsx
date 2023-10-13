@@ -44,7 +44,7 @@ export default function DaySelection() {
               activeDate === dateIsoFormat ? "active" : ""
             } ${today === dateIsoFormat ? "today" : ""}`}
             key={index}
-            onClick={(e) => onDayButtonClicked(e, dateIsoFormat)}
+            onClick={(e) => { onDayButtonClicked(e, dateIsoFormat); }}
           >
             {`${date} ${weekdays[index]}`}
           </button>

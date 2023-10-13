@@ -21,13 +21,16 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((result) => {
+        // FIXME: response validation with yup
         const dates = getDates(result);
         setPlanDates(dates);
         setActiveDate(getRecommendedDate(dates));
         setData(result);
         setIsLoading(false);
       })
-      .catch((error) => console.error("Error while fetching data:", error));
+      .catch((error) => {
+        console.error("Error while fetching data:", error);
+      });
   }, []);
 
   return (
@@ -48,7 +51,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
 };
 
 function getDates(mensaList: MensaList): string[] {
-  const suedCanteen = mensaList["ul_uni_sued"];
+  const suedCanteen = mensaList.ul_uni_sued;
   return Object.keys(suedCanteen).sort();
 }
 
