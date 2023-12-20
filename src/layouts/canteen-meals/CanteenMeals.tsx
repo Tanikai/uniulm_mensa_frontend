@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DataContext, DataContextProps } from "../../providers/DataContext";
+import { DataContext, DataContextProps, Mensaplan } from "../../providers/DataContext";
 import MealElement from "./meal-element/MealElement";
 
 import "./CanteenMeals.css";
@@ -16,7 +16,7 @@ export default function CanteenMeals() {
     );
   }
 
-  const canteen = mensaplan[selectedCanteen];
+  const canteen: Mensaplan = mensaplan[selectedCanteen];
   if (canteen == null) {
     return (<div></div>);
   }

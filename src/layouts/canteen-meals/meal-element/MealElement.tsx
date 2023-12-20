@@ -19,7 +19,7 @@ export default function MealElement(props: MealElementProps) {
         <p>{props.meal.name}</p>
       </div>
       <div className="meal-price">
-        <p>{props.meal.type}</p>
+        <p>{props.meal.types.join(", ")}</p>
         <p>
           {props.meal.prices.students} | {props.meal.prices.employees} |{" "}
           {props.meal.prices.others}{" "}

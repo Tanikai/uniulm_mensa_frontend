@@ -12,6 +12,7 @@ export interface Meal {
   category: string;
   prices: MealPrices;
   type: string;
+  types: string[];
   allergy: string[];
 }
 
