@@ -14,6 +14,9 @@
     color: var(--md-sys-color-primary);
     background-color: var(--md-sys-color-surface);
     transition: box-shadow 0.2s ease-in-out 0s;
+    padding: 0;
+    white-space: hidden;
+    overflow: hidden;
 }
 
 .day-element:hover {
