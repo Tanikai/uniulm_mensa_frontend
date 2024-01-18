@@ -9,7 +9,7 @@ function App() {
       <CanteenMeals />
       <footer>
         <a
-          href="https://github.com/tanikai/mensaplan-web-interface"
+          href="https://github.com/tanikai/uniulm_mensa_frontend"
           target="_blank"
           rel="noreferrer"
         >
