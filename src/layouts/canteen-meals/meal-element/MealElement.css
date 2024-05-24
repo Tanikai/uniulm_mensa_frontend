@@ -24,7 +24,8 @@
     border: none;
     font-size: 1.2em;
     border-radius: 50%;
-    aspect-ratio: 1 / 1;
+    height: 2rem;
+    width: 2rem;
     background: none;
     color: black;
 }

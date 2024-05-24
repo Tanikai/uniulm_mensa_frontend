@@ -6,7 +6,7 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    width: 80vw;
+    width: 90vw;
     max-width: 400px;
     min-height: 300px;
 
@@ -44,7 +44,8 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    aspect-ratio: 1 / 1;
+    height: 2rem;
+    width: 2rem;
 }
 
 table {
