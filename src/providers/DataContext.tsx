@@ -1,42 +1,35 @@
-import { createContext } from "react";
-import { defaultState } from "./DefaultState";
+export interface MealPrices {
+    students: string;
+    employees: string;
+    others: string;
+}
 
-interface MealPrices {
-  students: string;
-  employees: string;
-  others: string;
+export interface MealNutrition {
+    calories: string;
+    protein: string;
+    carbohydrates: string;
+    sugar: string;
+    fat: string;
+    saturated_fat: string;
+    salt: string;
 }
 
 export interface Meal {
-  name: string;
-  category: string;
-  prices: MealPrices;
-  type: string;
-  types: string[];
-  allergy: string[];
+    name: string;
+    category: string;
+    prices: MealPrices;
+    type: string;
+    types: string[];
+    allergy: string[];
+    co2: string;
+    nutrition: MealNutrition;
 }
 
-export interface Mensaplan {
-  [index: string]: Meal[]; // index is the date in iso
-}
+export type Mensaplan = Record<string, Meal[]>;
 
-export interface MensaList {
-  [index: string]: Mensaplan;
-}
-
-export interface DataContextProps {
-  mensaplan: MensaList;
-  planDates: string[];
-  activeDate: string; // in YYYY-MM-DD format
-  setActiveDate: (date: string) => void;
-  isLoading: boolean;
-  selectedCanteen: string;
-  setSelectedCanteen: (canteen: string) => void;
-}
+export type MensaList = Record<string, Mensaplan>;
 
 export interface Canteen {
-  id: string;
-  display: string;
+    id: string;
+    display: string;
 }
-
-export const DataContext = createContext<DataContextProps>(defaultState);

@@ -1,30 +1,40 @@
-import { Meal } from "../../../providers/DataContext";
+import {Meal} from "../../../providers/DataContext";
 
 import "./MealElement.css";
 
 interface MealElementProps {
-  meal: Meal | undefined;
+    meal: Meal | undefined;
+    onInfoClicked: (meal: Meal) => void;
 }
 
-export default function MealElement(props: MealElementProps) {
-  if (props.meal == null) {
-    return <div className="meal-element">Mensa geschlossen</div>;
-  }
-  return (
-    <div className="meal-element">
-      <div className="meal-category">
-        <h2>{props.meal.category}</h2>
-      </div>
-      <div className="meal-name">
-        <p>{props.meal.name}</p>
-      </div>
-      <div className="meal-price">
-        <p>{props.meal.types.join(", ")}</p>
-        <p>
-          {props.meal.prices.students} | {props.meal.prices.employees} |{" "}
-          {props.meal.prices.others}{" "}
-        </p>
-      </div>
-    </div>
-  );
+export default function MealElement({meal, onInfoClicked}: MealElementProps) {
+    if (meal == null) {
+        return <div className="meal-element">Mensa geschlossen</div>;
+    }
+
+    return (
+        <div className="meal-element">
+            <div className="meal-category">
+                <h2>{meal.category}</h2>
+                {meal.nutrition.calories !== "" && (
+                    <button
+                        className="info-button"
+                        onClick={() => {
+                            onInfoClicked(meal);
+                        }}>⋯
+                    </button>
+                )}
+            </div>
+            <div className="meal-name">
+                <p>{meal.name}</p>
+            </div>
+            <div className="meal-price">
+                <p>{meal.types.join(", ")}</p>
+                <p>
+                    {meal.prices.students} | {meal.prices.employees} |{" "}
+                    {meal.prices.others}{" "}
+                </p>
+            </div>
+        </div>
+    );
 }

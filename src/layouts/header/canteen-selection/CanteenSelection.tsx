@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 
 import "./CanteenSelection.css";
-import { DataContext, DataContextProps} from "../../../providers/DataContext";
 import { canteens } from "../../../providers/Constants";
+import {DataContext, DataContextProps} from "../../../providers/MensaplanProvider.tsx";
 
 
 

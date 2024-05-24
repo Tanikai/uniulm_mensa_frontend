@@ -1,43 +1,18 @@
 import "./App.css";
 import CanteenMeals from "./layouts/canteen-meals/CanteenMeals";
 import Header from "./layouts/header/Header";
+import Footer from "./layouts/Footer.tsx";
+import NutritionModal from "./layouts/modal/NutritionModal.tsx";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <CanteenMeals />
-      <footer>
-        <a
-          href="https://github.com/tanikai/uniulm_mensa_frontend"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub
-        </a>
-        <span> | </span>
-        <a
-          href="https://studierendenwerk-ulm.de/essen-trinken/speiseplaene/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Quelle
-        </a>
-        <span> | </span>
-        <a href="https://uulm.anter.dev/" target="_blank" rel="noreferrer">
-          Rohdaten
-        </a>
-        <span> | </span>
-        <a
-          href="https://www.anter.dev/imprint"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Impressum
-        </a>
-      </footer>
-    </>
-  );
+    return (
+        <>
+            <Header/>
+            <NutritionModal/>
+            <CanteenMeals/>
+            <Footer/>
+        </>
+    );
 }
 
 export default App;

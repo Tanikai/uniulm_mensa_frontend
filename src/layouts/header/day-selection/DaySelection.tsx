@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import "./DaySelection.css";
-import { DataContext, DataContextProps } from "../../../providers/DataContext";
 import { BarLoader } from "react-spinners";
 import dayjs from "dayjs";
+import {DataContext, DataContextProps} from "../../../providers/MensaplanProvider.tsx";
 
 export default function DaySelection() {
   const weekdayTemplate = ["Mo", "Di", "Mi", "Do", "Fr"];
