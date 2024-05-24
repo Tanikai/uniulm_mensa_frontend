@@ -15,7 +15,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
     defaultState.selectedCanteen
   );
   const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
-  const apiUrl = "https://uulm.anter.dev/api/v1/canteens/ul_uni_sued/all";
+  const apiUrl = "https://uulm.anter.dev/api/v1/canteens/all";
 
   useEffect(() => {
     fetch(apiUrl)
