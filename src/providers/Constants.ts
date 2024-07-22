@@ -9,7 +9,7 @@ export const canteens: Canteen[] = [
 ];
 
 export const diets: Diet[] = [
-  "Alle",
+  "Uneingeschränkt",
   "vegan",
   "vegetarisch",
   "Fleisch",

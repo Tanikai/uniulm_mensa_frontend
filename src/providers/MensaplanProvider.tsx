@@ -32,7 +32,7 @@ export const defaultState: DataContextProps = {
     selectedCanteen: "ul_uni_sued",
     setSelectedCanteen: () => {
     },
-    selectedDiet: "Alle",
+    selectedDiet: "Uneingeschränkt",
     setSelectedDiet: () => {
     },
     mealInfoDialog: {

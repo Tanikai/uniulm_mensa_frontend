@@ -23,15 +23,25 @@ export default function CanteenMeals() {
         return (<div></div>);
     }
 
-    const meals = canteen[activeDate].filter(({types}) => {
-        if(selectedDiet === "Alle") {
+    const meals = canteen[activeDate];
+
+    if (meals == null) {
+        return (<div>Ein Fehler ist aufgetreten, sorry!</div>)
+    }
+
+    const filteredMeals = meals.filter(({types}) => {
+        if(selectedDiet === "Uneingeschränkt") {
             return true;
         }
         return types.includes(selectedDiet)
     });
 
-    if (meals == null) {
-        return (<div>Ein Fehler ist aufgetreten, sorry!</div>)
+    if(filteredMeals.length === 0 && meals.length > 0) {
+        return (
+            <div id="canteen-meals">
+                <div className="meal-element">Für den gewählten Filter gibt es keine Essen</div>
+            </div>
+        );
     }
 
     const onInfoClicked = (meal: Meal) => {
@@ -43,7 +53,7 @@ export default function CanteenMeals() {
             {meals.length == 0 ? (
                 <MealElement meal={undefined} onInfoClicked={() => undefined}></MealElement>
             ) : (
-                meals.map((meal, index) => {
+                filteredMeals.map((meal, index) => {
                     return <MealElement meal={meal} key={index} onInfoClicked={onInfoClicked}></MealElement>;
                 })
             )}
