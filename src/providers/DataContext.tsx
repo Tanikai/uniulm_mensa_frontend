@@ -33,3 +33,5 @@ export interface Canteen {
     id: string;
     display: string;
 }
+
+export type Diet = string

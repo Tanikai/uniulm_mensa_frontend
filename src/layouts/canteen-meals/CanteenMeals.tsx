@@ -8,7 +8,7 @@ import {DataContext, DataContextProps} from "../../providers/MensaplanProvider.t
 
 export default function CanteenMeals() {
     const {
-        mensaplan, isLoading, activeDate, selectedCanteen, setMealInfoDialog
+        mensaplan, isLoading, activeDate, selectedCanteen, selectedDiet, setMealInfoDialog
     } = useContext<DataContextProps>(DataContext);
     if (isLoading || activeDate === "") {
         return (
@@ -22,7 +22,13 @@ export default function CanteenMeals() {
     if (canteen == null) {
         return (<div></div>);
     }
-    const meals = canteen[activeDate];
+
+    const meals = canteen[activeDate].filter(({types}) => {
+        if(selectedDiet === "Alle") {
+            return true;
+        }
+        return types.includes(selectedDiet)
+    });
 
     if (meals == null) {
         return (<div>Ein Fehler ist aufgetreten, sorry!</div>)

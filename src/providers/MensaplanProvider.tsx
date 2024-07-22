@@ -16,6 +16,8 @@ export interface DataContextProps {
     isLoading: boolean;
     selectedCanteen: string;
     setSelectedCanteen: (canteen: string) => void;
+    selectedDiet: string;
+    setSelectedDiet: (diet: string) => void;
     mealInfoDialog: MealInfoDialog;
     setMealInfoDialog: (dialog: MealInfoDialog) => void;
 }
@@ -29,6 +31,9 @@ export const defaultState: DataContextProps = {
     isLoading: true,
     selectedCanteen: "ul_uni_sued",
     setSelectedCanteen: () => {
+    },
+    selectedDiet: "Alle",
+    setSelectedDiet: () => {
     },
     mealInfoDialog: {
         open: false,
@@ -52,6 +57,9 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({children}) => {
     const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
     const [selectedCanteen, setSelectedCanteen] = useState<string>(
         defaultState.selectedCanteen
+    );
+    const [selectedDiet, setSelectedDiet] = useState<string>(
+        defaultState.selectedDiet
     );
     const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
     const [mealInfoDialog, setMealInfoDialog] = useState<MealInfoDialog>(defaultState.mealInfoDialog);
@@ -80,6 +88,8 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({children}) => {
                 isLoading: isLoading,
                 selectedCanteen: selectedCanteen,
                 setSelectedCanteen: setSelectedCanteen,
+                selectedDiet: selectedDiet,
+                setSelectedDiet: setSelectedDiet,
                 activeDate: activeDate,
                 setActiveDate: setActiveDate,
                 mealInfoDialog: mealInfoDialog,
