@@ -1,14 +1,15 @@
 import {useContext} from "react";
-import {Meal, Mensaplan} from "../../providers/DataContext";
+import {Meal, MealType, Mensaplan} from "../../providers/DataContext";
 import MealElement from "./meal-element/MealElement";
 
 import "./CanteenMeals.css";
 import {ScaleLoader} from "react-spinners";
 import {DataContext, DataContextProps} from "../../providers/MensaplanProvider.tsx";
+import {DietName, DietSets} from "../../providers/Constants.ts";
 
 export default function CanteenMeals() {
     const {
-        mensaplan, isLoading, activeDate, selectedCanteen, setMealInfoDialog
+        mensaplan, isLoading, activeDate, selectedCanteen, selectedDiet, setMealInfoDialog
     } = useContext<DataContextProps>(DataContext);
     if (isLoading || activeDate === "") {
         return (
@@ -22,10 +23,31 @@ export default function CanteenMeals() {
     if (canteen == null) {
         return (<div></div>);
     }
+
     const meals = canteen[activeDate];
 
     if (meals == null) {
         return (<div>Ein Fehler ist aufgetreten, sorry!</div>)
+    }
+
+    const filteredMeals = meals.filter(({types}) => {
+        if (selectedDiet === DietName.Unrestricted) {
+            return true;
+        }
+        for (const t of types) { // has bad complexity, but types has at most 3 elements
+            if (DietSets[selectedDiet].includes(t as MealType)) {
+                return true;
+            }
+        }
+        return false;
+    });
+
+    if (filteredMeals.length === 0 && meals.length > 0) {
+        return (
+            <div id="canteen-meals">
+                <div className="meal-element">Für den gewählten Filter gibt es keine Essen</div>
+            </div>
+        );
     }
 
     const onInfoClicked = (meal: Meal) => {
@@ -37,7 +59,7 @@ export default function CanteenMeals() {
             {meals.length == 0 ? (
                 <MealElement meal={undefined} onInfoClicked={() => undefined}></MealElement>
             ) : (
-                meals.map((meal, index) => {
+                filteredMeals.map((meal, index) => {
                     return <MealElement meal={meal} key={index} onInfoClicked={onInfoClicked}></MealElement>;
                 })
             )}

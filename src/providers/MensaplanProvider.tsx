@@ -1,6 +1,7 @@
 import React, {createContext, useEffect, useState} from "react";
 import {Meal, MensaList} from "./DataContext";
 import dayjs from "dayjs";
+import {DietName} from "./Constants.ts";
 
 export interface MealInfoDialog {
     open: boolean;
@@ -16,6 +17,8 @@ export interface DataContextProps {
     isLoading: boolean;
     selectedCanteen: string;
     setSelectedCanteen: (canteen: string) => void;
+    selectedDiet: DietName;
+    setSelectedDiet: (diet: DietName) => void;
     mealInfoDialog: MealInfoDialog;
     setMealInfoDialog: (dialog: MealInfoDialog) => void;
 }
@@ -30,11 +33,15 @@ export const defaultState: DataContextProps = {
     selectedCanteen: "ul_uni_sued",
     setSelectedCanteen: () => {
     },
+    selectedDiet: DietName.Unrestricted,
+    setSelectedDiet: () => {
+    },
     mealInfoDialog: {
         open: false,
         meal: null,
     },
-    setMealInfoDialog: () => {},
+    setMealInfoDialog: () => {
+    },
 };
 
 export const DataContext = createContext<DataContextProps>(defaultState);
@@ -52,6 +59,9 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({children}) => {
     const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
     const [selectedCanteen, setSelectedCanteen] = useState<string>(
         defaultState.selectedCanteen
+    );
+    const [selectedDiet, setSelectedDiet] = useState<DietName>(
+        defaultState.selectedDiet
     );
     const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
     const [mealInfoDialog, setMealInfoDialog] = useState<MealInfoDialog>(defaultState.mealInfoDialog);
@@ -80,6 +90,8 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({children}) => {
                 isLoading: isLoading,
                 selectedCanteen: selectedCanteen,
                 setSelectedCanteen: setSelectedCanteen,
+                selectedDiet: selectedDiet,
+                setSelectedDiet: setSelectedDiet,
                 activeDate: activeDate,
                 setActiveDate: setActiveDate,
                 mealInfoDialog: mealInfoDialog,

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 
-import "./CanteenSelection.css";
 import { canteens } from "../../../providers/Constants";
 import {DataContext, DataContextProps} from "../../../providers/MensaplanProvider.tsx";
 
@@ -15,12 +14,10 @@ export default function CanteenSelection() {
   };
 
   return (
-    <nav id="canteen-selection">
-      <select id="mensa-select" onChange={onCanteenChange}>
-        {canteens.map((canteen) => {
-          return <option key={canteen.id} value={canteen.id}>{canteen.display}</option>;
-        })}
-      </select>
-    </nav>
+    <select id="mensa-select" onChange={onCanteenChange}>
+      {canteens.map((canteen) => {
+        return <option key={canteen.id} value={canteen.id}>{canteen.display}</option>;
+      })}
+    </select>
   );
 }

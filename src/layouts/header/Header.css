@@ -2,7 +2,23 @@
     color: var(--md-sys-color-primary);
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     width: 100%;
-    margin-left: auto;
+}
+
+nav {
+    display: flex;
+    justify-content: end;
+    gap: 0.7em;
+}
+
+@media only screen and (max-width: 640px) {
+    .row {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    nav {
+        width: 100%;
+    }
 }
