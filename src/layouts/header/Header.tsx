@@ -11,9 +11,8 @@ function Header() {
         <h1>
           <a href="#">UUlm Mensa</a>
         </h1>
-        <nav style={{marginLeft: "auto"}}>
+        <nav>
           <CanteenSelection />
-          <span style={{margin: ".7em"}} />
           <DietSelection />
         </nav>
       </div>
