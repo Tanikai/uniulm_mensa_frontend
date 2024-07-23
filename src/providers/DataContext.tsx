@@ -14,12 +14,24 @@ export interface MealNutrition {
     salt: string;
 }
 
+/**
+ * Meal types that are returned by the API
+ */
+export enum MealType {
+    Vegan = "vegan",
+    Vegetarian = "vegetarisch",
+    Fish = "Fisch",
+    Pork = "Schwein",
+    Beef = "Rind",
+    Poultry = "Geflügel",
+}
+
 export interface Meal {
     name: string;
     category: string;
     prices: MealPrices;
-    type: string;
-    types: string[];
+    type: string; // FIXME: parse to MealType
+    types: string[]; // FIXME: parse to MealType
     allergy: string[];
     co2: string;
     nutrition: MealNutrition;
@@ -33,5 +45,3 @@ export interface Canteen {
     id: string;
     display: string;
 }
-
-export type Diet = string

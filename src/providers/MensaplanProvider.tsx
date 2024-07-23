@@ -1,6 +1,7 @@
 import React, {createContext, useEffect, useState} from "react";
 import {Meal, MensaList} from "./DataContext";
 import dayjs from "dayjs";
+import {DietName} from "./Constants.ts";
 
 export interface MealInfoDialog {
     open: boolean;
@@ -16,8 +17,8 @@ export interface DataContextProps {
     isLoading: boolean;
     selectedCanteen: string;
     setSelectedCanteen: (canteen: string) => void;
-    selectedDiet: string;
-    setSelectedDiet: (diet: string) => void;
+    selectedDiet: DietName;
+    setSelectedDiet: (diet: DietName) => void;
     mealInfoDialog: MealInfoDialog;
     setMealInfoDialog: (dialog: MealInfoDialog) => void;
 }
@@ -32,14 +33,15 @@ export const defaultState: DataContextProps = {
     selectedCanteen: "ul_uni_sued",
     setSelectedCanteen: () => {
     },
-    selectedDiet: "Uneingeschränkt",
+    selectedDiet: DietName.Unrestricted,
     setSelectedDiet: () => {
     },
     mealInfoDialog: {
         open: false,
         meal: null,
     },
-    setMealInfoDialog: () => {},
+    setMealInfoDialog: () => {
+    },
 };
 
 export const DataContext = createContext<DataContextProps>(defaultState);
@@ -58,7 +60,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({children}) => {
     const [selectedCanteen, setSelectedCanteen] = useState<string>(
         defaultState.selectedCanteen
     );
-    const [selectedDiet, setSelectedDiet] = useState<string>(
+    const [selectedDiet, setSelectedDiet] = useState<DietName>(
         defaultState.selectedDiet
     );
     const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
