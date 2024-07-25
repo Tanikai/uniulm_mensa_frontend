@@ -14,7 +14,7 @@ export default function CanteenSelection() {
   };
 
   return (
-    <select id="mensa-select" onChange={onCanteenChange}>
+    <select id="mensa-select" aria-label="Mensa" onChange={onCanteenChange}>
       {canteens.map((canteen) => {
         return <option key={canteen.id} value={canteen.id}>{canteen.display}</option>;
       })}

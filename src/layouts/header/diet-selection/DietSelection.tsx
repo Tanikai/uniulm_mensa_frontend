@@ -13,7 +13,7 @@ export default function DietSelection() {
     };
 
     return (
-        <select id="diet-select" onChange={onDietChange} defaultValue={selectedDiet}>
+        <select id="diet-select" aria-label="Ernährungsweise" onChange={onDietChange} defaultValue={selectedDiet}>
             {Object.values(DietName).map((diet: DietName) => {
                 return <option key={diet} value={diet}>{diet}</option>;
             })}
