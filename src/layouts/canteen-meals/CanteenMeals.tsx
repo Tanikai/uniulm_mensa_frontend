@@ -42,12 +42,13 @@ export default function CanteenMeals() {
         if (selectedDiet === DietName.Unrestricted) {
             return true;
         }
-        for (const t of types) { // has bad complexity, but types has at most 3 elements
-            if (DietSets[selectedDiet].includes(t as MealType)) {
-                return true;
+        for (const t of types) {
+            // every meal type of the meal must be in the selected diet
+            if (!DietSets[selectedDiet].has(t as MealType)) {
+                return false;
             }
         }
-        return false;
+        return true;
     });
 
     if (filteredMeals.length === 0 && meals.length > 0) {

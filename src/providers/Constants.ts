@@ -21,14 +21,14 @@ export enum DietName {
     Poultry = "Nur Geflügel",
 }
 
-export const DietSets: Record<DietName, MealType[]> = {
-    [DietName.Unrestricted]: Object.values(MealType),
-    [DietName.Vegan]: [MealType.Vegan],
-    [DietName.Vegetarian]: [MealType.Vegan, MealType.Vegetarian],
-    [DietName.NoPork]: Object.values(MealType).filter((type) => type !== MealType.Pork),
-    [DietName.Meat]: [MealType.Pork, MealType.Beef, MealType.Poultry],
-    [DietName.Fish]: [MealType.Fish],
-    [DietName.Pork]: [MealType.Pork],
-    [DietName.Beef]: [MealType.Beef],
-    [DietName.Poultry]: [MealType.Poultry],
+export const DietSets: Record<DietName, Set<MealType>> = {
+    [DietName.Unrestricted]: new Set(Object.values(MealType)),
+    [DietName.Vegan]: new Set([MealType.Vegan]),
+    [DietName.Vegetarian]: new Set([MealType.Vegan, MealType.Vegetarian]),
+    [DietName.NoPork]: new Set(Object.values(MealType).filter((type) => type !== MealType.Pork)),
+    [DietName.Meat]: new Set([MealType.Pork, MealType.Beef, MealType.Poultry]),
+    [DietName.Fish]: new Set([MealType.Fish]),
+    [DietName.Pork]: new Set([MealType.Pork]),
+    [DietName.Beef]: new Set([MealType.Beef]),
+    [DietName.Poultry]: new Set([MealType.Poultry]),
 }
