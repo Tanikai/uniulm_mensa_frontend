@@ -23,7 +23,7 @@ export interface DataContextProps {
     setMealInfoDialog: (dialog: MealInfoDialog) => void;
 }
 
-export const defaultState: DataContextProps = {
+const defaultState: DataContextProps = {
     mensaplan: {},
     planDates: [],
     activeDate: "",
@@ -61,8 +61,15 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({children}) => {
         defaultState.selectedCanteen
     );
     const [selectedDiet, setSelectedDiet] = useState<DietName>(
-        defaultState.selectedDiet
+        () => {
+            const storedDiet = localStorage.getItem("diet");
+            return storedDiet !== null ? storedDiet as DietName : defaultState.selectedDiet;
+        }
     );
+    const setSelectedDietWithStorage = (diet: DietName) => {
+        localStorage.setItem("diet", diet);
+        setSelectedDiet(diet);
+    }
     const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
     const [mealInfoDialog, setMealInfoDialog] = useState<MealInfoDialog>(defaultState.mealInfoDialog);
 
@@ -91,7 +98,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({children}) => {
                 selectedCanteen: selectedCanteen,
                 setSelectedCanteen: setSelectedCanteen,
                 selectedDiet: selectedDiet,
-                setSelectedDiet: setSelectedDiet,
+                setSelectedDiet: setSelectedDietWithStorage,
                 activeDate: activeDate,
                 setActiveDate: setActiveDate,
                 mealInfoDialog: mealInfoDialog,
