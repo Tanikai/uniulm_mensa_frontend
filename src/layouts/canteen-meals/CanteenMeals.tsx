@@ -30,6 +30,14 @@ export default function CanteenMeals() {
         return (<div>Ein Fehler ist aufgetreten, sorry!</div>)
     }
 
+    if (meals.length === 0) {
+        return (
+            <div id="canteen-meals">
+                <div className="meal-element">Mensa geschlossen</div>
+            </div>
+        );
+    }
+
     const filteredMeals = meals.filter(({types}) => {
         if (selectedDiet === DietName.Unrestricted) {
             return true;
@@ -50,19 +58,18 @@ export default function CanteenMeals() {
         );
     }
 
+
     const onInfoClicked = (meal: Meal) => {
         setMealInfoDialog({open: true, meal: meal});
     }
 
     return (
         <div id="canteen-meals">
-            {meals.length == 0 ? (
-                <MealElement meal={undefined} onInfoClicked={() => undefined}></MealElement>
-            ) : (
+            {
                 filteredMeals.map((meal, index) => {
                     return <MealElement meal={meal} key={index} onInfoClicked={onInfoClicked}></MealElement>;
                 })
-            )}
+            }
         </div>
     );
 }

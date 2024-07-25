@@ -3,15 +3,11 @@ import {Meal} from "../../../providers/DataContext";
 import "./MealElement.css";
 
 interface MealElementProps {
-    meal: Meal | undefined;
+    meal: Meal;
     onInfoClicked: (meal: Meal) => void;
 }
 
 export default function MealElement({meal, onInfoClicked}: MealElementProps) {
-    if (meal == null) {
-        return <div className="meal-element">Mensa geschlossen</div>;
-    }
-
     return (
         <div className="meal-element">
             <div className="meal-category">
