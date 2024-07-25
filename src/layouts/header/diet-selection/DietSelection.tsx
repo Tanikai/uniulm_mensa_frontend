@@ -6,14 +6,14 @@ import {DataContext, DataContextProps} from "../../../providers/MensaplanProvide
 
 export default function DietSelection() {
 
-    const {setSelectedDiet} = useContext<DataContextProps>(DataContext);
+    const {selectedDiet, setSelectedDiet} = useContext<DataContextProps>(DataContext);
 
     const onDietChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedDiet(event.target.value as DietName);
     };
 
     return (
-        <select id="diet-select" onChange={onDietChange}>
+        <select id="diet-select" onChange={onDietChange} defaultValue={selectedDiet}>
             {Object.values(DietName).map((diet: DietName) => {
                 return <option key={diet} value={diet}>{diet}</option>;
             })}
