@@ -42,6 +42,10 @@ export default function CanteenMeals() {
         if (selectedDiet === DietName.Unrestricted) {
             return true;
         }
+        // if meal has no types, then only show in unrestricted diet
+        if (types.length === 0) {
+            return false;
+        }
         for (const t of types) {
             // every meal type of the meal must be in the selected diet
             if (!DietSets[selectedDiet].has(t as MealType)) {
