@@ -22,7 +22,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(240, 240, 240, 0.75);
+    background-color: rgb(from var(--md-sys-color-surface) r g b / 0.75);
 }
 
 .nutrition-table {
