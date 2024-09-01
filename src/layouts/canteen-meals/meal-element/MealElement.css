@@ -27,5 +27,5 @@
     height: 2rem;
     width: 2rem;
     background: none;
-    color: black;
+    color: var(--md-sys-color-on-secondary-container);
 }
