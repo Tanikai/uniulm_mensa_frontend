@@ -26,6 +26,7 @@
     bottom: 0;
     background-color: rgb(from var(--md-sys-color-surface) r g b / 0.75);
     backdrop-filter: blur(3px);
+    z-index: 200;
 }
 
 .nutrition-table {
