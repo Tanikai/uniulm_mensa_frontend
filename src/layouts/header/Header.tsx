@@ -49,6 +49,18 @@ function Header() {
     }
   }, [atTop, position]);
 
+  useEffect(() => { // Let the CSS know when we're not at the top of the page. Only useful when on large screens
+    const header = document.querySelector('.sticky');
+    if(header === null)
+      return;
+
+    if(atTop) {
+      header.classList.remove('scrolled');
+    } else {
+      header.classList.add('scrolled');
+    }
+  }, [atTop]);
+
   return (
     <header className="sticky">
       <div className="row">
