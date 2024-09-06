@@ -21,8 +21,6 @@ function Header() {
     if(header === null)
       return;
 
-    console.log(distance);
-
     if(scrolledDown) {
       header.classList.add('hidden');
     } else if(scrolledUp && distance > 25) {
