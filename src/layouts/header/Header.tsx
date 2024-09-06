@@ -4,22 +4,18 @@ import DaySelection from "./day-selection/DaySelection";
 import DietSelection from "./diet-selection/DietSelection";
 
 import "./Header.css";
+import { useScroll } from '../../hooks/useScroll';
 
 function Header() {
-  const handleScroll = () => {
-    if(window.scrollY > 0) {
+  const [scrollY, distance] = useScroll();
+
+  useEffect(() => {
+    if(scrollY > 0) {
       document.querySelector('.sticky')?.classList.add('scrolled')
     } else {
       document.querySelector('.sticky')?.classList.remove('scrolled')
     }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  }, [scrollY, distance]);
 
   return (
     <header className="sticky">
