@@ -6,36 +6,47 @@ import DietSelection from "./diet-selection/DietSelection";
 
 import "./Header.css";
 
+function dontAnimateTranslation(element: Element) {
+  element.getAnimations()
+    .map(anim => anim as CSSTransition)
+    .filter(anim => anim.transitionProperty === 'transform')
+    .forEach(anim => { anim.finish(); });
+}
+
 function Header() {
-  const {position, atTop, scrolledUp, scrolledDown} = useScroll();
+  const {position, distance, atTop, scrolledUp, scrolledDown} = useScroll();
 
   useEffect(() => { // Hide header on scroll down, show on scroll up
     const header = document.querySelector('.sticky');
     if(header === null)
       return;
 
+    console.log(distance);
+
     if(scrolledDown) {
       header.classList.add('hidden');
-    } else if(scrolledUp) {
+    } else if(scrolledUp && distance > 25) {
       header.classList.remove('hidden');
     }
-  }, [scrolledUp, scrolledDown]);
+  }, [scrolledUp, scrolledDown, distance]);
 
   useEffect(() => { // Determine, when the header should be sticky and when it should flow with the page
     const header = document.querySelector('.sticky');
     if(header === null)
       return;
 
-    if(atTop) { // Header is at the top of the page -> not sticky, flow with the page
+    const headerHeight = header.getBoundingClientRect().height;
+
+    if(atTop) { // We are at the top of the page -> not sticky, flow with the page
       header.classList.add('fixed');
-    } else if(position > header.getBoundingClientRect().height) { // The header is completely scrolled off-screen -> sticky, do not flow with the page
+    } else if(position < headerHeight && header.classList.contains('hidden')) { // If we are nearly at the top and the header is currently hidden -> don't animate in the sticky header, but make it flow with the page
+      header.classList.add('fixed');
+      dontAnimateTranslation(header); // No animation here, as the header should move with the page and not animate in
+    } else if(position > headerHeight) { // The header is completely scrolled off-screen -> sticky, do not flow with the page
       const wasFixed = header.classList.contains('fixed');
       header.classList.remove('fixed');
       if(wasFixed) { // If the header was previously sticky, do not animate it, this would create a weird flicker/jump
-        header.getAnimations()
-          .map(anim => anim as CSSTransition)
-          .filter(anim => anim.transitionProperty === 'transform')
-          .forEach(anim => { anim.finish(); });
+        dontAnimateTranslation(header);
       }
     }
   }, [atTop, position]);
