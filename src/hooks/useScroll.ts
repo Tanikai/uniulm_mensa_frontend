@@ -17,5 +17,5 @@ export const useScroll = () => {
     }
   }, [position]);
 
-  return { position, distance, scrolledDown: distance > 0, scrolledUp: distance < 0, atTop: position === 0};
+  return { position, distance: Math.abs(distance), scrolledDown: distance > 0, scrolledUp: distance < 0, atTop: position === 0};
 }
