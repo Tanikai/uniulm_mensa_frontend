@@ -17,5 +17,5 @@ export const useScroll = () => {
     }
   }, [position]);
 
-  return [position, distance];
+  return { position, distance, scrolledDown: distance > 0, scrolledUp: distance < 0, atTop: position === 0};
 }
