@@ -1,11 +1,18 @@
 .sticky {
-    position: sticky;
     top: 0;
     z-index: 100;
-    transition: box-shadow 0.3s;
+    transition: all 0.3s;
 }
 
-.sticky.scrolled {
+.sticky:not(.fixed) {
+    position: sticky;
+}
+
+.sticky.hidden:not(.fixed) {
+    transform: translateY(-100%);
+}
+
+.sticky:not(.hidden):not(.fixed) {
     box-shadow: 0 0 10px 1px rgb(var(--md-sys-color-shadow-rgb) / 0.25);
 }
 
