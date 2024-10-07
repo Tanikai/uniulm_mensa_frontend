@@ -5,14 +5,14 @@ import Footer from "./layouts/Footer.tsx";
 import NutritionModal from "./layouts/modal/NutritionModal.tsx";
 
 function App() {
-    return (
-        <>
-            <Header/>
-            <NutritionModal/>
-            <CanteenMeals/>
-            <Footer/>
-        </>
-    );
+  return (
+    <>
+      <Header />
+      <NutritionModal />
+      <CanteenMeals />
+      <Footer />
+    </>
+  );
 }
 
 export default App;

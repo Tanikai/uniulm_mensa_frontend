@@ -1,68 +1,68 @@
 .Modal {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90vw;
-    max-width: 400px;
-    min-height: 300px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90vw;
+  max-width: 400px;
+  min-height: 300px;
 
-    background-color: var(--md-sys-color-surface);
-    border-radius: 1em;
-    padding: 1em;
-    overflow: hidden;
+  background-color: var(--md-sys-color-surface);
+  border-radius: 1em;
+  padding: 1em;
+  overflow: hidden;
 
-    box-shadow: 0 0 50px 10px rgb(var(--md-sys-color-shadow-rgb) / 0.25);
+  box-shadow: 0 0 50px 10px rgb(var(--md-sys-color-shadow-rgb) / 0.25);
 }
 
 .Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgb(from var(--md-sys-color-surface) r g b / 0.75);
-    backdrop-filter: blur(3px);
-    z-index: 200;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(from var(--md-sys-color-surface) r g b / 0.75);
+  backdrop-filter: blur(3px);
+  z-index: 200;
 }
 
 .nutrition-table {
-    /*center in middle*/
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
+  /*center in middle*/
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .close-button {
-    background: none;
-    color: var(--md-sys-color-on-secondary-container);
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    height: 2rem;
-    width: 2rem;
+  background: none;
+  color: var(--md-sys-color-on-secondary-container);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 td {
-    border-collapse: collapse;
-    padding: 0 0.5rem 0 0;
-    vertical-align: top;
+  border-collapse: collapse;
+  padding: 0 0.5rem 0 0;
+  vertical-align: top;
 }
 
 h3 {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
