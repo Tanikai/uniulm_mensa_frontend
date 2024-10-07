@@ -27,6 +27,7 @@ export default function MealElement({meal, onInfoClicked}: MealElementProps) {
             <div className="meal-price">
                 <p>{meal.types.join(", ")}</p>
                 <p>
+                    {meal.price_note !== "" && `(${meal.price_note}) `}
                     {meal.prices.students} | {meal.prices.employees} |{" "}
                     {meal.prices.others}{" "}
                 </p>

@@ -30,6 +30,7 @@ export interface Meal {
     name: string;
     category: string;
     prices: MealPrices;
+    price_note: string;
     type: string; // FIXME: parse to MealType
     types: string[]; // FIXME: parse to MealType
     allergy: string[];
