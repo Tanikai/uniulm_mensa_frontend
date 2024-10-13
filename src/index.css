@@ -75,7 +75,7 @@ select {
   font-size: 1em;
   color: var(--md-sys-color-primary);
   background-color: var(--md-sys-color-surface);
-  padding: 0.5em;
+  padding: 0.5em 1em;
   height: 40px;
   border-radius: 20px;
   border: 1px solid var(--md-sys-color-outline);
