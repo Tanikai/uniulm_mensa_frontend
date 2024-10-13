@@ -28,8 +28,8 @@ export default function MealElement({meal, onInfoClicked}: MealElementProps) {
                 <p>{meal.types.join(", ")}</p>
                 <p>
                     {meal.price_note !== "" && `(${meal.price_note}) `}
-                    {meal.prices.students} | {meal.prices.employees} |{" "}
-                    {meal.prices.others}{" "}
+                    <span title={"Studierende"}>{meal.prices.students}</span> | <span title={"Mitarbeitende"}>{meal.prices.employees}</span> |{" "}
+                    <span title={"Gäste"}>{meal.prices.others}</span>{" "}
                 </p>
             </div>
         </div>
