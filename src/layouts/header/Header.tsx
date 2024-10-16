@@ -28,7 +28,7 @@ function Header() {
 
       const headerHeight = header.getBoundingClientRect().height;
 
-      if (scrolledDown && position > headerHeight && distance > 3) {
+      if (scrolledDown && position > headerHeight) {
         header.classList.add("hidden");
       } else if (scrolledUp && distance > 10) {
         header.classList.remove("hidden");
