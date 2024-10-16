@@ -24,15 +24,17 @@ function Header() {
     const header = document.querySelector(".sticky");
     if (header === null) return;
 
-    if (scrolledDown && distance > 25) {
+    const headerHeight = header.getBoundingClientRect().height;
+
+    if (scrolledDown && position > headerHeight && distance > 3) {
       header.classList.add("hidden");
-    } else if (scrolledUp && distance > 25) {
+    } else if (scrolledUp && distance > 10) {
       header.classList.remove("hidden");
     }
-  }, [scrolledUp, scrolledDown, distance]);
+  }, [scrolledUp, scrolledDown, distance, position]);
 
   useEffect(() => {
-    // Determine, when the header should be sticky and when it should flow with the page
+    // Determine when the header should be sticky and when it should flow with the page
     const header = document.querySelector(".sticky");
     if (header === null) return;
 
