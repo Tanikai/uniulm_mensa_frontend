@@ -2,7 +2,10 @@ import React, { useContext } from "react";
 import "./DaySelection.css";
 import { BarLoader } from "react-spinners";
 import dayjs from "dayjs";
-import {DataContext, DataContextProps} from "../../../providers/MensaplanProvider.tsx";
+import {
+  DataContext,
+  DataContextProps,
+} from "../../../providers/MensaplanProvider.tsx";
 
 export default function DaySelection() {
   const weekdayTemplate = ["Mo", "Di", "Mi", "Do", "Fr"];
@@ -27,7 +30,7 @@ export default function DaySelection() {
 
   const onDayButtonClicked = (
     _: React.MouseEvent<HTMLButtonElement>,
-    value: string
+    value: string,
   ) => {
     setActiveDate(value);
   };
