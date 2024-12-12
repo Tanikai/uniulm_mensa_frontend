@@ -49,12 +49,47 @@ const additivesMap: Record<string, string> = {
   "18R": "Gelatine (Rind)",
 };
 
+const priceKindToString: Record<string, string> = {
+  "students": "Studierende",
+  "employees": "Mitarbeitende",
+  "others": "Gäste"
+};
+
 export default function NutritionModal() {
   const context = useContext(DataContext);
   const meal: Meal | null = context.mealInfoDialog.meal;
+  console.log(meal);
 
   const handleCloseModal = () => {
     context.setMealInfoDialog({ open: false, meal: null });
+  };
+
+  const extractValue = (source: string, regex: RegExp) => {
+    const match = source.match(regex);
+    if (match) {
+        const kcalString = match[1].replace(',', '.');
+        return parseFloat(kcalString);
+    }
+    return undefined;
+  }
+
+  const extractProcePerCalorie = (meal: Meal) => {
+    const kcals = extractValue(meal.nutrition.calories, /(\d+,\d+)\s*kcal/);
+    if (kcals === undefined) {
+      return [];
+    }
+
+    const prices = Object.entries(meal.prices).map(([kind, p]: [string, string]) => { return {
+      kind: kind,
+      price: extractValue(p, /(\d+,\d{2})\s*€/)
+    }});
+    if (prices.some(({price}) => price === undefined)) {
+      return [];
+    }
+
+    return(prices.map(({kind, price}) => {
+      return {price: (price as unknown as number / kcals * 100).toFixed(2), type: kind};
+    }))
   };
 
   const allergies = meal?.allergy.filter((key) => key in allergyMap).sort();
@@ -78,6 +113,19 @@ export default function NutritionModal() {
       </div>
       {meal != null ? (
         <>
+          <h3>Preis pro Kalorie</h3>
+          <table className={"nutrition-table"}>
+            <tbody>
+              {extractProcePerCalorie(meal).map(({price, type}) => {
+                return (
+                  <tr key={type}>
+                    <td>{priceKindToString[type]}</td>
+                    <td>{price} ct</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
           <h3>
             CO<span style={{ verticalAlign: "sub" }}>2</span>-Ausstoß
           </h3>
