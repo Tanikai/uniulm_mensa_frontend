@@ -58,7 +58,6 @@ const priceKindToString: Record<string, string> = {
 export default function NutritionModal() {
   const context = useContext(DataContext);
   const meal: Meal | null = context.mealInfoDialog.meal;
-  console.log(meal);
 
   const handleCloseModal = () => {
     context.setMealInfoDialog({ open: false, meal: null });
@@ -73,7 +72,7 @@ export default function NutritionModal() {
     return undefined;
   }
 
-  const extractProcePerCalorie = (meal: Meal) => {
+  const extractCaloriesPerEuro = (meal: Meal) => {
     const kcals = extractValue(meal.nutrition.calories, /(\d+,\d+)\s*kcal/);
     if (kcals === undefined) {
       return [];
@@ -88,7 +87,7 @@ export default function NutritionModal() {
     }
 
     return(prices.map(({kind, price}) => {
-      return {price: (price as unknown as number / kcals * 100).toFixed(2), type: kind};
+      return {price: (kcals / (price as unknown as number)).toFixed(2), type: kind};
     }))
   };
 
@@ -113,14 +112,14 @@ export default function NutritionModal() {
       </div>
       {meal != null ? (
         <>
-          <h3>Preis pro Kalorie</h3>
+          <h3>Kalorien pro Euro</h3>
           <table className={"nutrition-table"}>
             <tbody>
-              {extractProcePerCalorie(meal).map(({price, type}) => {
+              {extractCaloriesPerEuro(meal).map(({price, type}) => {
                 return (
                   <tr key={type}>
                     <td>{priceKindToString[type]}</td>
-                    <td>{price} ct</td>
+                    <td>{price} kcal / €</td>
                   </tr>
                 );
               })}
@@ -130,7 +129,7 @@ export default function NutritionModal() {
             CO<span style={{ verticalAlign: "sub" }}>2</span>-Ausstoß
           </h3>
           <p>{meal.co2}</p>
-          <h3>Nährwerttabelle</h3>
+          <h3>Nährwerttabelle pro Portion</h3>
           <table className={"nutrition-table"}>
             <tbody>
               <tr>
