@@ -50,9 +50,9 @@ const additivesMap: Record<string, string> = {
 };
 
 const priceKindToString: Record<string, string> = {
-  "students": "Studierende",
-  "employees": "Mitarbeitende",
-  "others": "Gäste"
+  students: "Studierende",
+  employees: "Mitarbeitende",
+  others: "Gäste",
 };
 
 export default function NutritionModal() {
@@ -66,11 +66,11 @@ export default function NutritionModal() {
   const extractValue = (source: string, regex: RegExp) => {
     const match = source.match(regex);
     if (match) {
-        const kcalString = match[1].replace(',', '.');
-        return parseFloat(kcalString);
+      const kcalString = match[1].replace(",", ".");
+      return parseFloat(kcalString);
     }
     return undefined;
-  }
+  };
 
   const extractCaloriesPerEuro = (meal: Meal) => {
     const kcals = extractValue(meal.nutrition.calories, /(\d+,\d+)\s*kcal/);
@@ -78,17 +78,24 @@ export default function NutritionModal() {
       return [];
     }
 
-    const prices = Object.entries(meal.prices).map(([kind, p]: [string, string]) => { return {
-      kind: kind,
-      price: extractValue(p, /(\d+,\d{2})\s*€/)
-    }});
-    if (prices.some(({price}) => price === undefined)) {
+    const prices = Object.entries(meal.prices).map(
+      ([kind, p]: [string, string]) => {
+        return {
+          kind: kind,
+          price: extractValue(p, /(\d+,\d{2})\s*€/),
+        };
+      },
+    );
+    if (prices.some(({ price }) => price === undefined)) {
       return [];
     }
 
-    return(prices.map(({kind, price}) => {
-      return {price: (kcals / (price as unknown as number)).toFixed(2), type: kind};
-    }))
+    return prices.map(({ kind, price }) => {
+      return {
+        price: (kcals / (price as unknown as number)).toFixed(2),
+        type: kind,
+      };
+    });
   };
 
   const allergies = meal?.allergy.filter((key) => key in allergyMap).sort();
@@ -115,7 +122,7 @@ export default function NutritionModal() {
           <h3>Kalorien pro Euro</h3>
           <table className={"nutrition-table"}>
             <tbody>
-              {extractCaloriesPerEuro(meal).map(({price, type}) => {
+              {extractCaloriesPerEuro(meal).map(({ price, type }) => {
                 return (
                   <tr key={type}>
                     <td>{priceKindToString[type]}</td>
