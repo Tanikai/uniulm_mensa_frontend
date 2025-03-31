@@ -9,6 +9,59 @@ import {
   DataContextProps,
 } from "../../providers/MensaplanProvider.tsx";
 import { DietName, DietSets } from "../../providers/Constants.ts";
+import { MealAccordion } from "./meal-accordion/MealAccordion.tsx";
+
+interface MealGroup {
+  label: string;
+  meals: Meal[];
+}
+
+/**
+ * Group meals according to their category name.
+ * @param labels Label that is shown to the user for the group.
+ * @param prefixes Regular expression
+ * @param meals Meals that should be grouped
+ *
+ * @returns Tuple of groups and remaining meals
+ */
+function parseMealGroups(
+  labels: string[],
+  prefixes: string[],
+  meals: Meal[],
+): [MealGroup[], Meal[]] {
+  if (prefixes.length != labels.length) {
+    throw Error("prefixes and labels need same length");
+  }
+
+  const remainingMeals = [];
+  const groups = new Map<string, Meal[]>();
+  for (const prefix of prefixes) {
+    groups.set(prefix, []);
+  }
+
+  for (const meal of meals) {
+    let added = false;
+    for (const prefix of prefixes) {
+      const exp = new RegExp(prefix, "i"); // i = ignore case
+      if (exp.test(meal.category)) {
+        groups.get(prefix)?.push(meal);
+        added = true;
+        break;
+      }
+    }
+
+    // was it added or not?
+    if (!added) remainingMeals.push(meal);
+  }
+
+  const mealGroups: MealGroup[] = Array.from(groups.values()).map(
+    (groupMeals, i) => {
+      return { label: labels[i], meals: groupMeals };
+    },
+  );
+
+  return [mealGroups, remainingMeals];
+}
 
 export default function CanteenMeals() {
   const {
@@ -70,11 +123,17 @@ export default function CanteenMeals() {
     return (
       <div id="canteen-meals">
         <div className="meal-element">
-          Für den gewählten Filter gibt es keine Essen
+          Für den gewählten Filter gibt es keine Gerichte.
         </div>
       </div>
     );
   }
+
+  const [mealGroups, remainingMeals] = parseMealGroups(
+    ["Pizza", "Burger", "Beilage", "Dessert"],
+    ["Pizza", "Burger", "Salat|Beilage", "Dessert"],
+    meals,
+  );
 
   const onInfoClicked = (meal: Meal) => {
     setMealInfoDialog({ open: true, meal: meal });
@@ -82,13 +141,26 @@ export default function CanteenMeals() {
 
   return (
     <div id="canteen-meals">
-      {filteredMeals.map((meal, index) => {
+      {remainingMeals.map((meal) => {
         return (
           <MealElement
             meal={meal}
-            key={index}
+            key={meal.name}
             onInfoClicked={onInfoClicked}
           ></MealElement>
+        );
+      })}
+      <hr />
+      {mealGroups.map((mealGroup) => {
+        return mealGroup.meals.length === 0 ? (
+          <></>
+        ) : (
+          <MealAccordion
+            key={mealGroup.label}
+            label={mealGroup.label}
+            meals={mealGroup.meals}
+            onInfoClicked={onInfoClicked}
+          ></MealAccordion>
         );
       })}
     </div>
