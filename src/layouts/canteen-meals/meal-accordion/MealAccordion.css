@@ -1,0 +1,27 @@
+.meal-accordion {
+  margin-top: 1em;
+}
+
+.meal-accordion-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  cursor: pointer;
+}
+
+.meal-accordion-opened {
+}
+
+.meal-accordion-closed {
+  display: none;
+}
+
+.caret {
+  font-weight: bold;
+  margin-right: 16px;
+}
+
+hr {
+  margin-top: 0.75em;
+}
