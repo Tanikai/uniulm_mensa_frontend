@@ -130,8 +130,8 @@ export default function CanteenMeals() {
   }
 
   const [mealGroups, remainingMeals] = parseMealGroups(
-    ["Pizza", "Beilage", "Dessert"],
-    ["Pizza", "Salat|Beilage", "Dessert"],
+    ["Pizza", "Burger", "Beilage", "Dessert"],
+    ["Pizza", "Burger", "Salat|Beilage", "Dessert"],
     meals,
   );
 
@@ -150,9 +150,11 @@ export default function CanteenMeals() {
           ></MealElement>
         );
       })}
-
+      <hr />
       {mealGroups.map((mealGroup) => {
-        return (
+        return mealGroup.meals.length === 0 ? (
+          <></>
+        ) : (
           <MealAccordion
             key={mealGroup.label}
             label={mealGroup.label}
