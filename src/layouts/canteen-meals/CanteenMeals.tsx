@@ -132,7 +132,7 @@ export default function CanteenMeals() {
   const [mealGroups, remainingMeals] = parseMealGroups(
     ["Pizza", "Burger", "Beilage", "Dessert"],
     ["Pizza", "Burger", "Salat|Beilage", "Dessert"],
-    meals,
+    filteredMeals,
   );
 
   const onInfoClicked = (meal: Meal) => {
