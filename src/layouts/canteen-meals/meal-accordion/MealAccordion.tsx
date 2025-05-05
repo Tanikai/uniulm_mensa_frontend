@@ -1,4 +1,4 @@
-import { Meal } from "../../../providers/DataContext.tsx";
+import { Meal, MealType } from "../../../providers/DataContext.tsx";
 import MealElement from "../meal-element/MealElement.tsx";
 
 import "./MealAccordion.css";
@@ -8,12 +8,14 @@ export interface MealAccordionProps {
   label: string;
   meals: Meal[];
   onInfoClicked: (meal: Meal) => void;
+  mealTypeDisplay: Record<MealType, string>;
 }
 
 export function MealAccordion({
   label,
   meals,
   onInfoClicked,
+  mealTypeDisplay,
 }: MealAccordionProps) {
   const [open, setOpen] = useState(false);
 
@@ -43,9 +45,10 @@ export function MealAccordion({
         ) : (
           meals.map((meal) => (
             <MealElement
-              key={meal.type}
+              key={meal.name}
               meal={meal}
               onInfoClicked={onInfoClicked}
+              mealTypeDisplay={mealTypeDisplay}
             />
           ))
         )}

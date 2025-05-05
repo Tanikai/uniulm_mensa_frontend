@@ -8,10 +8,14 @@ import {
 } from "../../../providers/MensaplanProvider.tsx";
 
 export default function DaySelection() {
-  const weekdayTemplate = ["Mo", "Di", "Mi", "Do", "Fr"];
-  const weekdays = [...weekdayTemplate, ...weekdayTemplate];
-  const { planDates, activeDate, setActiveDate } =
+  const { planDates, activeDate, setActiveDate, appLanguage } =
     useContext<DataContextProps>(DataContext);
+
+  const weekdayTemplate =
+    appLanguage == "de"
+      ? ["Mo", "Di", "Mi", "Do", "Fr"]
+      : ["Mo", "Tu", "We", "Th", "Fr"];
+  const weekdays = [...weekdayTemplate, ...weekdayTemplate];
 
   if (planDates.length === 0) {
     return (

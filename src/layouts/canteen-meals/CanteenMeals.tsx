@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { Meal, MealType, Mensaplan } from "../../providers/DataContext";
 import MealElement from "./meal-element/MealElement";
 
@@ -8,8 +8,9 @@ import {
   DataContext,
   DataContextProps,
 } from "../../providers/MensaplanProvider.tsx";
-import { DietName, DietSets } from "../../providers/Constants.ts";
+import { Diet, DietSets } from "../../providers/Constants.ts";
 import { MealAccordion } from "./meal-accordion/MealAccordion.tsx";
+import { getMealTypeStrings } from "../../i18n/Strings.ts";
 
 interface MealGroup {
   label: string;
@@ -73,6 +74,16 @@ export default function CanteenMeals() {
     setMealInfoDialog,
     appLanguage,
   } = useContext<DataContextProps>(DataContext);
+
+  const { mealTypeStrings } = useMemo(() => {
+    return {
+      mealTypeStrings: getMealTypeStrings(appLanguage) as Record<
+        MealType,
+        string
+      >,
+    };
+  }, [appLanguage]);
+
   if (isLoading || activeDate === "") {
     return (
       <div
@@ -104,7 +115,7 @@ export default function CanteenMeals() {
   }
 
   const filteredMeals = meals.filter(({ types }) => {
-    if (selectedDiet === DietName.Unrestricted) {
+    if (selectedDiet === Diet.Unrestricted) {
       return true;
     }
     // if meal has no types, then only show in unrestricted diet
@@ -113,7 +124,7 @@ export default function CanteenMeals() {
     }
     for (const t of types) {
       // every meal type of the meal must be in the selected diet
-      if (!DietSets[selectedDiet].has(t as MealType)) {
+      if (!DietSets[selectedDiet].has(t)) {
         return false;
       }
     }
@@ -148,6 +159,7 @@ export default function CanteenMeals() {
             meal={meal}
             key={meal.name}
             onInfoClicked={onInfoClicked}
+            mealTypeDisplay={mealTypeStrings}
           ></MealElement>
         );
       })}
@@ -161,6 +173,7 @@ export default function CanteenMeals() {
             label={mealGroup.label}
             meals={mealGroup.meals}
             onInfoClicked={onInfoClicked}
+            mealTypeDisplay={mealTypeStrings}
           ></MealAccordion>
         );
       })}

@@ -1,17 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 
-import { DietName } from "../../../providers/Constants";
+import { Diet } from "../../../providers/Constants";
 import {
   DataContext,
   DataContextProps,
 } from "../../../providers/MensaplanProvider.tsx";
+import { getDietNameStrings } from "../../../i18n/Strings.ts";
 
 export default function DietSelection() {
-  const { selectedDiet, setSelectedDiet } =
+  const { selectedDiet, setSelectedDiet, appLanguage } =
     useContext<DataContextProps>(DataContext);
 
+  const { dietDisplayName } = useMemo(() => {
+    return { dietDisplayName: getDietNameStrings(appLanguage) };
+  }, [appLanguage]);
+
   const onDietChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDiet(event.target.value as DietName);
+    setSelectedDiet(event.target.value as Diet);
   };
 
   return (
@@ -21,10 +26,10 @@ export default function DietSelection() {
       onChange={onDietChange}
       defaultValue={selectedDiet}
     >
-      {Object.values(DietName).map((diet: DietName) => {
+      {Object.values(Diet).map((diet: Diet) => {
         return (
           <option key={diet} value={diet}>
-            {diet}
+            {dietDisplayName[diet]}
           </option>
         );
       })}

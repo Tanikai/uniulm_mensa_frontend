@@ -1,13 +1,18 @@
-import { Meal } from "../../../providers/DataContext";
+import { Meal, MealType } from "../../../providers/DataContext";
 
 import "./MealElement.css";
 
 interface MealElementProps {
   meal: Meal;
   onInfoClicked: (meal: Meal) => void;
+  mealTypeDisplay: Record<MealType, string>;
 }
 
-export default function MealElement({ meal, onInfoClicked }: MealElementProps) {
+export default function MealElement({
+  meal,
+  onInfoClicked,
+  mealTypeDisplay,
+}: MealElementProps) {
   return (
     <div className="meal-element">
       <div className="meal-category">
@@ -27,7 +32,9 @@ export default function MealElement({ meal, onInfoClicked }: MealElementProps) {
         <p>{meal.name}</p>
       </div>
       <div className="meal-price">
-        <p>{meal.types.join(", ")}</p>
+        <p>
+          {meal.types.map((meal_type) => mealTypeDisplay[meal_type]).join(", ")}
+        </p>
         <p>
           {meal.price_note !== "" && `(${meal.price_note}) `}
           <span title={"Studierende"}>{meal.prices.students}</span> |{" "}

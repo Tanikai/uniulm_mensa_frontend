@@ -20,12 +20,16 @@ export interface MealNutrition {
  * Meal types that are returned by the API
  */
 export enum MealType {
+  None = "none",
   Vegan = "vegan",
-  Vegetarian = "vegetarisch",
-  Fish = "Fisch",
-  Pork = "Schwein",
-  Beef = "Rind",
-  Poultry = "Geflügel",
+  Vegetarian = "vegetarian",
+  Pork = "pork",
+  Beef = "beef",
+  Poultry = "poultry",
+  Fish = "fish",
+  Lamb = "lamb",
+  Game = "game",
+  Bio = "bio",
 }
 
 export interface Meal {
@@ -33,8 +37,7 @@ export interface Meal {
   category: string;
   prices: MealPrices;
   price_note: string;
-  type: string; // FIXME: parse to MealType
-  types: string[]; // FIXME: parse to MealType
+  types: MealType[];
   allergy: string[];
   co2: string;
   nutrition: MealNutrition;

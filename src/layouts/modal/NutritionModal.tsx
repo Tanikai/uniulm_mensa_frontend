@@ -8,17 +8,23 @@ import {
   getAdditivesStrings,
   getAllergyStrings,
   getPriceKindStrings,
+  getUIStrings,
+  UIStringKeys,
 } from "../../i18n/Strings.ts";
 
 export default function NutritionModal() {
   const context = useContext(DataContext);
   const meal: Meal | null = context.mealInfoDialog.meal;
 
-  const { allergyMap, additivesMap, priceKind } = useMemo(() => {
+  const { allergyMap, additivesMap, priceKind, uiStrings } = useMemo(() => {
     return {
       allergyMap: getAllergyStrings(context.appLanguage),
       additivesMap: getAdditivesStrings(context.appLanguage),
       priceKind: getPriceKindStrings(context.appLanguage),
+      uiStrings: getUIStrings(context.appLanguage) as Record<
+        UIStringKeys,
+        string
+      >,
     };
   }, [context.appLanguage]);
 
@@ -75,14 +81,14 @@ export default function NutritionModal() {
       overlayClassName="Overlay"
     >
       <div className={"modal-header"}>
-        <h2>Zusätzliche Informationen</h2>
+        <h2>{uiStrings.MODAL_TITLE}</h2>
         <button onClick={handleCloseModal} className={"close-button"}>
           ✕
         </button>
       </div>
       {meal != null ? (
         <>
-          <h3>Kalorien pro Euro</h3>
+          <h3>{uiStrings.MODAL_CALORIES_PER_EURO}</h3>
           <table className={"nutrition-table"}>
             <tbody>
               {extractCaloriesPerEuro(meal).map(({ price, type }) => {
@@ -96,41 +102,42 @@ export default function NutritionModal() {
             </tbody>
           </table>
           <h3>
-            CO<span style={{ verticalAlign: "sub" }}>2</span>-Ausstoß
+            CO<span style={{ verticalAlign: "sub" }}>2</span>-
+            {uiStrings.MODAL_CO2}
           </h3>
           <p>{meal.co2}</p>
-          <h3>Nährwerttabelle pro Portion</h3>
+          <h3>{uiStrings.MODAL_NUTR_TITLE}</h3>
           <table className={"nutrition-table"}>
             <tbody>
               <tr>
-                <td>Kalorien</td>
+                <td>{uiStrings.MODAL_NUTR_CALORIES}</td>
                 <td>{meal.nutrition.calories}</td>
               </tr>
               <tr>
-                <td>Protein</td>
+                <td>{uiStrings.MODAL_NUTR_PROTEIN}</td>
                 <td>{meal.nutrition.protein}</td>
               </tr>
               <tr>
-                <td>Kohlenhydrate</td>
+                <td>{uiStrings.MODAL_NUTR_CARB}</td>
                 <td>
                   {meal.nutrition.carbohydrates} ({meal.nutrition.sugar})
                 </td>
               </tr>
               <tr>
-                <td>Fett</td>
+                <td>{uiStrings.MODAL_NUTR_FAT}</td>
                 <td>
                   {meal.nutrition.fat} ({meal.nutrition.saturated_fat})
                 </td>
               </tr>
               <tr>
-                <td>Salz</td>
+                <td>{uiStrings.MODAL_NUTR_SALT}</td>
                 <td>{meal.nutrition.salt}</td>
               </tr>
             </tbody>
           </table>
-          <h3>Allergene</h3>
+          <h3>{uiStrings.MODAL_NUTR_ALLERGENS}</h3>
           {allergies?.length === 0 ? (
-            <p>Keine Allergene angegeben.</p>
+            <p>{uiStrings.MODAL_NUTR_NO_ALLERGENS}</p>
           ) : (
             <table className={"nutrition-table"}>
               <tbody>
@@ -143,10 +150,9 @@ export default function NutritionModal() {
               </tbody>
             </table>
           )}
-
-          <h3>Zusatzstoffe</h3>
+          <h3>{uiStrings.MODAL_NUTR_ADDITIVES}</h3>
           {additives?.length === 0 ? (
-            <p>Keine Zusatzstoffe angegeben.</p>
+            <p>{uiStrings.MODAL_NUTR_NO_ADDITIVES}</p>
           ) : (
             <table className={"nutrition-table"}>
               <tbody>
@@ -161,7 +167,7 @@ export default function NutritionModal() {
           )}
         </>
       ) : (
-        <p>Zu diesem Gericht gibt es keine zusätzlichen Informationen.</p>
+        <p>{uiStrings.MODAL_NO_NUTR}</p>
       )}
     </ReactModal>
   );

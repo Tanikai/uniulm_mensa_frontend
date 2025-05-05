@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Meal, MensaList, MensaListLang } from "./DataContext";
 import dayjs from "dayjs";
-import { DietName } from "./Constants.ts";
-import { AppLanguage } from "../i18n/Strings.ts";
+import { Diet } from "./Constants.ts";
+import { AppLanguage, getToMealTypeStrings } from "../i18n/Strings.ts";
 
 export interface MealInfoDialog {
   open: boolean;
@@ -17,8 +17,8 @@ export interface DataContextProps {
   isLoading: boolean;
   selectedCanteen: string;
   setSelectedCanteen: (canteen: string) => void;
-  selectedDiet: DietName;
-  setSelectedDiet: (diet: DietName) => void;
+  selectedDiet: Diet;
+  setSelectedDiet: (diet: Diet) => void;
   mealInfoDialog: MealInfoDialog;
   setMealInfoDialog: (dialog: MealInfoDialog) => void;
   appLanguage: AppLanguage;
@@ -33,7 +33,7 @@ const defaultState: DataContextProps = {
   isLoading: true,
   selectedCanteen: "ul_uni_sued",
   setSelectedCanteen: () => {},
-  selectedDiet: DietName.Unrestricted,
+  selectedDiet: Diet.Unrestricted,
   setSelectedDiet: () => {},
   mealInfoDialog: {
     open: false,
@@ -59,13 +59,13 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
   const [selectedCanteen, setSelectedCanteen] = useState<string>(
     defaultState.selectedCanteen,
   );
-  const [selectedDiet, setSelectedDiet] = useState<DietName>(() => {
-    const storedDiet = localStorage.getItem("diet");
+  const [selectedDiet, setSelectedDiet] = useState<Diet>(() => {
+    const storedDiet = localStorage.getItem("selected_diet");
     return storedDiet !== null
-      ? (storedDiet as DietName)
+      ? (storedDiet as Diet)
       : defaultState.selectedDiet;
   });
-  const setSelectedDietWithStorage = (diet: DietName) => {
+  const setSelectedDietWithStorage = (diet: Diet) => {
     localStorage.setItem("diet", diet);
     setSelectedDiet(diet);
   };
