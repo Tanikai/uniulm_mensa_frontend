@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Meal, MensaList } from "./DataContext";
+import { Meal, MensaList, MensaListLang } from "./DataContext";
 import dayjs from "dayjs";
 import { DietName } from "./Constants.ts";
+import { AppLanguage } from "../i18n/Strings.ts";
 
 export interface MealInfoDialog {
   open: boolean;
@@ -9,7 +10,7 @@ export interface MealInfoDialog {
 }
 
 export interface DataContextProps {
-  mensaplan: MensaList;
+  mensaplan: MensaListLang;
   planDates: string[];
   activeDate: string; // in YYYY-MM-DD format
   setActiveDate: (date: string) => void;
@@ -20,10 +21,12 @@ export interface DataContextProps {
   setSelectedDiet: (diet: DietName) => void;
   mealInfoDialog: MealInfoDialog;
   setMealInfoDialog: (dialog: MealInfoDialog) => void;
+  appLanguage: AppLanguage;
+  toggleAppLanguage: () => void;
 }
 
 const defaultState: DataContextProps = {
-  mensaplan: {},
+  mensaplan: { de: {}, en: {} },
   planDates: [],
   activeDate: "",
   setActiveDate: () => {},
@@ -37,6 +40,8 @@ const defaultState: DataContextProps = {
     meal: null,
   },
   setMealInfoDialog: () => {},
+  appLanguage: "de",
+  toggleAppLanguage: () => {},
 };
 
 export const DataContext = createContext<DataContextProps>(defaultState);
@@ -48,7 +53,7 @@ interface MensaProviderProps {
 const apiUrl = "https://uulm.anter.dev/api/v1/canteens/all";
 
 const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
-  const [data, setData] = useState<MensaList>(defaultState.mensaplan);
+  const [data, setData] = useState<MensaListLang>(defaultState.mensaplan);
   const [planDates, setPlanDates] = useState<string[]>(defaultState.planDates);
   const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
   const [selectedCanteen, setSelectedCanteen] = useState<string>(
@@ -69,21 +74,51 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
     defaultState.mealInfoDialog,
   );
 
+  const [appLanguage, setAppLanguage] = useState<AppLanguage>(() => {
+    const storedLanguage = localStorage.getItem("lang");
+    return storedLanguage !== null
+      ? (storedLanguage as AppLanguage)
+      : defaultState.appLanguage;
+  });
+  const toggleAppLanguage = () => {
+    let newLanguage: AppLanguage;
+    if (appLanguage == "de") {
+      newLanguage = "en";
+    } else {
+      newLanguage = "de";
+    }
+    localStorage.setItem("lang", newLanguage);
+    setAppLanguage(newLanguage);
+  };
+
   useEffect(() => {
-    fetch(apiUrl)
+    let ignore = false;
+
+    if (Object.keys(data[appLanguage]).length > 0) {
+      return;
+    }
+
+    setIsLoading(true);
+    fetch(`${apiUrl}?lang=${appLanguage}`)
       .then((response) => response.json())
       .then((result: MensaList) => {
         // FIXME: yup validation
         const dates = getDates(result);
         setPlanDates(dates);
         setActiveDate(getRecommendedDate(dates));
-        setData(result);
+        const updated = data;
+        updated[appLanguage] = result;
+        setData(updated);
         setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error while fetching data:", error);
       });
-  }, []);
+
+    return () => {
+      ignore = true;
+    };
+  }, [appLanguage, data]);
 
   return (
     <DataContext.Provider
@@ -99,6 +134,8 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
         setActiveDate: setActiveDate,
         mealInfoDialog: mealInfoDialog,
         setMealInfoDialog: setMealInfoDialog,
+        appLanguage: appLanguage,
+        toggleAppLanguage: toggleAppLanguage,
       }}
     >
       {children}

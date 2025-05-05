@@ -71,6 +71,7 @@ export default function CanteenMeals() {
     selectedCanteen,
     selectedDiet,
     setMealInfoDialog,
+    appLanguage,
   } = useContext<DataContextProps>(DataContext);
   if (isLoading || activeDate === "") {
     return (
@@ -83,7 +84,7 @@ export default function CanteenMeals() {
     );
   }
 
-  const canteen: Mensaplan = mensaplan[selectedCanteen];
+  const canteen: Mensaplan = mensaplan[appLanguage][selectedCanteen];
   if (canteen == null) {
     return <div></div>;
   }

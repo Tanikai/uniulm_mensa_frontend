@@ -1,3 +1,5 @@
+import { AppLanguage } from "../i18n/Strings";
+
 export interface MealPrices {
   students: string;
   employees: string;
@@ -41,6 +43,8 @@ export interface Meal {
 export type Mensaplan = Record<string, Meal[]>;
 
 export type MensaList = Record<string, Mensaplan>;
+
+export type MensaListLang = Record<AppLanguage, MensaList>;
 
 export interface Canteen {
   id: string;

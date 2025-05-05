@@ -1,63 +1,26 @@
 import ReactModal from "react-modal";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { DataContext } from "../../providers/MensaplanProvider.tsx";
 import { Meal } from "../../providers/DataContext.tsx";
 
 import "./NutritionModal.css";
-
-const allergyMap: Record<string, string> = {
-  "13": "Krebstiere",
-  "14": "Eier",
-  "22": "Erdnüsse",
-  "23": "Soja",
-  "24": "Milch/Milchprodukte",
-  "25H": "Haselnuss",
-  "25W": "Walnuss",
-  "25P": "Pistazie",
-  "25Mn": "Mandel",
-  "25C": "Cashew",
-  "25Ma": "Macadamia",
-  "25Pk": "Pekanuss",
-  "26": "Sellerie",
-  "27": "Senf",
-  Gl: "Glutenhaltiges Getreide",
-  "28": "Sesamsamen",
-  "29": "Schwefeldioxid Konz. > 10 mg",
-  "30": "Sulfite Konz. > 10 mg",
-  "31": "Lupine",
-  "32": "Weichtiere",
-  "34W": "Weizen",
-  "34G": "Gerste",
-  "34H": "Hafer",
-  "34R": "Roggen",
-  "34D": "Dinkel",
-  "35": "Fisch",
-};
-
-const additivesMap: Record<string, string> = {
-  "1": "Farbstoff",
-  "2": "Konservierungsstoff",
-  "3": "Antioxidationsmittel",
-  "4": "Geschmacksverstärker",
-  "5": "geschwefelt",
-  "6": "geschwärzt",
-  "7": "gewachst",
-  "8": "Phosphat",
-  "9": "Süßungsmittel",
-  "10": "Phenylalin",
-  "18": "Gelatine (Schwein)",
-  "18R": "Gelatine (Rind)",
-};
-
-const priceKindToString: Record<string, string> = {
-  students: "Studierende",
-  employees: "Mitarbeitende",
-  others: "Gäste",
-};
+import {
+  getAdditivesStrings,
+  getAllergyStrings,
+  getPriceKindStrings,
+} from "../../i18n/Strings.ts";
 
 export default function NutritionModal() {
   const context = useContext(DataContext);
   const meal: Meal | null = context.mealInfoDialog.meal;
+
+  const { allergyMap, additivesMap, priceKind } = useMemo(() => {
+    return {
+      allergyMap: getAllergyStrings(context.appLanguage),
+      additivesMap: getAdditivesStrings(context.appLanguage),
+      priceKind: getPriceKindStrings(context.appLanguage),
+    };
+  }, [context.appLanguage]);
 
   const handleCloseModal = () => {
     context.setMealInfoDialog({ open: false, meal: null });
@@ -125,7 +88,7 @@ export default function NutritionModal() {
               {extractCaloriesPerEuro(meal).map(({ price, type }) => {
                 return (
                   <tr key={type}>
-                    <td>{priceKindToString[type]}</td>
+                    <td>{priceKind[type]}</td>
                     <td>{price} kcal / €</td>
                   </tr>
                 );

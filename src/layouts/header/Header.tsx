@@ -6,6 +6,7 @@ import DaySelection from "./day-selection/DaySelection";
 import DietSelection from "./diet-selection/DietSelection";
 
 import "./Header.css";
+import { LanguageToggle } from "./language-toggle/LanguageToggle.tsx";
 
 function dontAnimateTranslation(element: Element) {
   element
@@ -85,9 +86,12 @@ function Header() {
   return (
     <header className="sticky">
       <div className="row">
-        <h1>
-          <a href="#">UUlm Mensa</a>
-        </h1>
+        <div className="title-row">
+          <h1>
+            <a href="#">UUlm Mensa</a>
+          </h1>
+          <LanguageToggle />
+        </div>
         <nav>
           <CanteenSelection />
           <DietSelection />
