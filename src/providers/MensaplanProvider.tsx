@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { Meal, MensaList, MensaListLang } from "./DataContext";
 import dayjs from "dayjs";
 import { Diet } from "./Constants.ts";
-import { AppLanguage, getToMealTypeStrings } from "../i18n/Strings.ts";
+import { AppLanguage } from "../i18n/Strings.ts";
 
 export interface MealInfoDialog {
   open: boolean;
@@ -102,14 +102,16 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
     fetch(`${apiUrl}?lang=${appLanguage}`)
       .then((response) => response.json())
       .then((result: MensaList) => {
-        // FIXME: yup validation
-        const dates = getDates(result);
-        setPlanDates(dates);
-        setActiveDate(getRecommendedDate(dates));
-        const updated = data;
-        updated[appLanguage] = result;
-        setData(updated);
-        setIsLoading(false);
+        if (!ignore) {
+          // FIXME: yup validation
+          const dates = getDates(result);
+          setPlanDates(dates);
+          setActiveDate(getRecommendedDate(dates));
+          const updated = data;
+          updated[appLanguage] = result;
+          setData(updated);
+          setIsLoading(false);
+        }
       })
       .catch((error) => {
         console.error("Error while fetching data:", error);
