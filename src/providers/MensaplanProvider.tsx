@@ -53,20 +53,28 @@ interface MensaProviderProps {
 const apiUrl = "https://uulm.anter.dev/api/v1/canteens/all";
 
 const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
+  const DIET_KEY = "diet";
+  const LANGUAGE_KEY = "lang";
+  const CANTEEN_KEY = "canteen";
+
   const [data, setData] = useState<MensaListLang>(defaultState.mensaplan);
   const [planDates, setPlanDates] = useState<string[]>(defaultState.planDates);
   const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
-  const [selectedCanteen, setSelectedCanteen] = useState<string>(
-    defaultState.selectedCanteen,
-  );
+  const [selectedCanteen, setSelectedCanteen] = useState<string>(() => {
+    return localStorage.getItem(CANTEEN_KEY) ?? defaultState.selectedCanteen
+  });
+  const setSelectedCanteenWithStorage = (canteen: string) => {
+    localStorage.setItem(CANTEEN_KEY, canteen);
+    setSelectedCanteen(canteen);
+  }
   const [selectedDiet, setSelectedDiet] = useState<Diet>(() => {
-    const storedDiet = localStorage.getItem("selected_diet");
-    return storedDiet !== null
-      ? (storedDiet as Diet)
+    const storedDiet = localStorage.getItem(DIET_KEY) as Diet | null;
+    return storedDiet !== null && Object.values(Diet).includes(storedDiet)
+      ? storedDiet
       : defaultState.selectedDiet;
   });
   const setSelectedDietWithStorage = (diet: Diet) => {
-    localStorage.setItem("diet", diet);
+    localStorage.setItem(DIET_KEY, diet);
     setSelectedDiet(diet);
   };
   const [activeDate, setActiveDate] = useState<string>(defaultState.activeDate);
@@ -75,10 +83,8 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
   );
 
   const [appLanguage, setAppLanguage] = useState<AppLanguage>(() => {
-    const storedLanguage = localStorage.getItem("lang");
-    return storedLanguage !== null
-      ? (storedLanguage as AppLanguage)
-      : defaultState.appLanguage;
+    const storedLanguage = localStorage.getItem(LANGUAGE_KEY) as AppLanguage | null;
+    return storedLanguage ?? defaultState.appLanguage;
   });
   const toggleAppLanguage = () => {
     let newLanguage: AppLanguage;
@@ -87,7 +93,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
     } else {
       newLanguage = "de";
     }
-    localStorage.setItem("lang", newLanguage);
+    localStorage.setItem(LANGUAGE_KEY, newLanguage);
     setAppLanguage(newLanguage);
   };
 
@@ -129,7 +135,7 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
         planDates: planDates,
         isLoading: isLoading,
         selectedCanteen: selectedCanteen,
-        setSelectedCanteen: setSelectedCanteen,
+        setSelectedCanteen: setSelectedCanteenWithStorage,
         selectedDiet: selectedDiet,
         setSelectedDiet: setSelectedDietWithStorage,
         activeDate: activeDate,
