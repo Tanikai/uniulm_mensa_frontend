@@ -61,12 +61,12 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
   const [planDates, setPlanDates] = useState<string[]>(defaultState.planDates);
   const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
   const [selectedCanteen, setSelectedCanteen] = useState<string>(() => {
-    return localStorage.getItem(CANTEEN_KEY) ?? defaultState.selectedCanteen
+    return localStorage.getItem(CANTEEN_KEY) ?? defaultState.selectedCanteen;
   });
   const setSelectedCanteenWithStorage = (canteen: string) => {
     localStorage.setItem(CANTEEN_KEY, canteen);
     setSelectedCanteen(canteen);
-  }
+  };
   const [selectedDiet, setSelectedDiet] = useState<Diet>(() => {
     const storedDiet = localStorage.getItem(DIET_KEY) as Diet | null;
     return storedDiet !== null && Object.values(Diet).includes(storedDiet)
@@ -83,7 +83,9 @@ const MensaplanProvider: React.FC<MensaProviderProps> = ({ children }) => {
   );
 
   const [appLanguage, setAppLanguage] = useState<AppLanguage>(() => {
-    const storedLanguage = localStorage.getItem(LANGUAGE_KEY) as AppLanguage | null;
+    const storedLanguage = localStorage.getItem(
+      LANGUAGE_KEY,
+    ) as AppLanguage | null;
     return storedLanguage ?? defaultState.appLanguage;
   });
   const toggleAppLanguage = () => {
